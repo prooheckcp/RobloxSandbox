@@ -1,0 +1,14 @@
+[package]
+name = "essentiallyblue/zoneplus"
+description = "A fork of ZonePlus (1ForeverHD/ZonePlus)"
+license = "MIT"
+realm = "shared"
+registry = "https://github.com/UpliftGames/wally-index"
+version = "3.2.2"
+exclude = [
+	"docs", ".moonwave", "test",
+	"ZonePlus.rbxm", "ZonePlus.rbxmx",
+	".gitignore", "foreman.toml",
+]
+
+[dependencies]
