@@ -7,9 +7,11 @@ local Signal = require(ReplicatedStorage.Packages.Signal)
 local ZonePlus = require(ReplicatedStorage.Packages.ZonePlus)
 local ServerComm = require(ReplicatedStorage.Packages.Comm).ServerComm
 local attributeToCharm = require(ReplicatedStorage.Functions.attributeToCharm)
+local Charm = require(ReplicatedStorage.Packages.Charm)
 
 type Signal<T> = Signal.Signal<T>
 type Trove = Trove.Trove
+type Atom<T> = Charm.Atom<T>
 
 local DEFAULT_MAX_QUEUE: number = 5
 
@@ -23,6 +25,8 @@ local QueuePad = Component.new({
 QueuePad.Instance = newproxy() :: Instance
 QueuePad.JoinedQueue = newproxy() :: Signal<Player>
 QueuePad.LeftQueue = newproxy() :: Signal<Player>
+QueuePad.CurrentCount = newproxy() :: Atom<number>
+QueuePad.MaxCount = newproxy() :: Atom<number>
 QueuePad._CurrentQueue = {} :: {[string]: true} -- O(1) search <PlayerId, boolean>
 
 function QueuePad:Construct()
@@ -32,8 +36,8 @@ function QueuePad:Construct()
     self.JoinedQueue = self._Trove:Add(Signal.new())
     self.LeftQueue = self._Trove:Add(Signal.new())
     
-    self._CurrentCount = attributeToCharm(self.Instance, CURRENT_QUEUE_COUNT, 0, self._Trove)
-    self._MaxCount = attributeToCharm(self.Instance, MAX_QUEUE_SIZE, DEFAULT_MAX_QUEUE, self._Trove)
+    self.CurrentCount = attributeToCharm(self.Instance, CURRENT_QUEUE_COUNT, 0, self._Trove)
+    self.MaxCount = attributeToCharm(self.Instance, MAX_QUEUE_SIZE, DEFAULT_MAX_QUEUE, self._Trove)
 
     self._Trove:Add(Players.PlayerRemoving:Connect(function(player: Player)
         self:_RemovePlayerFromQueue(player)

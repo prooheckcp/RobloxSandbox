@@ -56,4 +56,6 @@ function QueuePad:Stop()
     self._Trove:Destroy()
 end
 
+export type QueuePad = typeof(QueuePad)
+
 return QueuePad
