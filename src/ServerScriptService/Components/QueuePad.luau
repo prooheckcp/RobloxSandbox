@@ -80,6 +80,7 @@ function QueuePad:_AddPlayerToQueue(player: Player)
         return
     end
 
+    self.CurrentCount(self.CurrentCount() + 1)
     self._CurrentQueue[tostring(player.UserId)] = true
     self.JoinedQueue:Fire(player)
 end
@@ -89,6 +90,7 @@ function QueuePad:_RemovePlayerFromQueue(player: Player)
         return
     end
 
+    self.CurrentCount(self.CurrentCount() - 1)
     self._CurrentQueue[tostring(player.UserId)] = nil
     self.LeftQueue:Fire(player)
 end
