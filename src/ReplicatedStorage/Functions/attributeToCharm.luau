@@ -31,7 +31,7 @@ local function attributeToCharm(
             if currentValue ~= instance:GetAttribute(attribute) then
                 currentValue(instance:GetAttribute(attribute))
             end
-        end))      
+        end))
         
         trove:Add(subscribe(attributeAtom, function(newValue)
             instance:SetAttribute(attribute, newValue)
